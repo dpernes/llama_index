@@ -215,11 +215,12 @@ def messages_to_converse_messages(
             assert "toolUseId" in tool_call, f"`toolUseId` not found in {tool_call}"
             assert "input" in tool_call, f"`input` not found in {tool_call}"
             assert "name" in tool_call, f"`name` not found in {tool_call}"
-            tool_input = (
-                json.loads(tool_call["input"])
-                if isinstance(tool_call["input"], str)
-                else tool_call["input"]
-            )
+            if isinstance(tool_call["input"], str):
+                tool_input = json.loads(tool_call["input"])
+            elif tool_call["input"]:
+                tool_input = tool_call["input"]
+            else:
+                tool_input = {}
             content.append(
                 {
                     "toolUse": {
