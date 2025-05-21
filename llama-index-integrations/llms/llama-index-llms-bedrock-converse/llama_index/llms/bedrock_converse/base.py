@@ -448,14 +448,14 @@ class BedrockConverse(FunctionCallingLLM):
                     yield ChatResponse(
                         message=ChatMessage(
                             role=role,
-                            content=content.get("text", "") or "-",
+                            content=text if (text := content.get("text", "")).strip() else "-",
                             additional_kwargs={
                                 "tool_calls": tool_calls,
                                 "tool_call_id": [tc.get("toolUseId", "") for tc in tool_calls],
                                 "status": [],  # Will be populated when tool results come in
                             },
                         ),
-                        delta=content_delta.get("text", "") or "-",
+                        delta=text if (text := content_delta.get("text", "")).strip() else "-",
                         raw=chunk,
                         additional_kwargs=self._get_response_token_counts(dict(chunk)),
                     )
@@ -471,7 +471,7 @@ class BedrockConverse(FunctionCallingLLM):
                     yield ChatResponse(
                         message=ChatMessage(
                             role=role,
-                            content=content.get("text", "") or "-",
+                            content=text if (text := content.get("text", "")).strip() else "-",
                             additional_kwargs={
                                 "tool_calls": tool_calls,
                                 "tool_call_id": [tc.get("toolUseId", "") for tc in tool_calls],
@@ -594,14 +594,14 @@ class BedrockConverse(FunctionCallingLLM):
                     yield ChatResponse(
                         message=ChatMessage(
                             role=role,
-                            content=content.get("text", "") or "-",
+                            content=text if (text := content.get("text", "")).strip() else "-",
                             additional_kwargs={
                                 "tool_calls": tool_calls,
                                 "tool_call_id": [tc.get("toolUseId", "") for tc in tool_calls],
                                 "status": [],  # Will be populated when tool results come in
                             },
                         ),
-                        delta=content_delta.get("text", "") or "-",
+                        delta=text if (text := content_delta.get("text", "")).strip() else "-",
                         raw=chunk,
                         additional_kwargs=self._get_response_token_counts(dict(chunk)),
                     )
